@@ -1,21 +1,39 @@
+import { HStack, Box,Image,Heading ,Flex,Input,Text} from '@chakra-ui/react';
+import { AiOutlineSearch } from "react-icons/ai";
+import {MdOutlineNotifications} from "react-icons/md"
+import {BsCart2} from "react-icons/bs"
 import React from 'react';
-import { Box,Text,Heading } from '@chakra-ui/react';
-import Logo from './Logo';
-import SearchBar from './SearchBar';
-import LoginMenu from './LoginMenu';
+import { NavLink } from 'react-router-dom';
+
 
 const Navbar = () => {
-  return (<>
-    <Box as="nav" bg="gray.800" color="white" p={4} display="flex" alignItems="center" justifyContent="space-around" >
-      <Logo />
-      <SearchBar />
-      <LoginMenu />
-    </Box>
-    <img src="./Images/StockGIF.gif" alt="stock gif" width="100%"/>
-    <Box width="500px">
-    <Text style={{marginTop:"-400px", color:"white", fontSize:"50px"}}>Start by Investing in Expert Choices</Text>
-    </Box>
-    </>);
-};
+    return (
+        <HStack>
+            <Box>
+                <HStack>
+                    <Image />
+                    <Heading>Trade24</Heading>
+                    <NavLink>Explore</NavLink>
+                    <NavLink>Investments</NavLink>
+                </HStack>
+            </Box>
+            <Box>
+                <HStack>
+                    <Box>
+                        <AiOutlineSearch/>
+                        <Input type="text"/>
+                    </Box>
+                </HStack>
+            </Box>
+            <Box>
+                <HStack>
+                    <MdOutlineNotifications/>
+                    <BsCart2/>
+                    <Text>Rinkesh</Text>
+                </HStack>
+            </Box>
+        </HStack>
+    );
+}
 
 export default Navbar;
