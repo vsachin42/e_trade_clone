@@ -29,7 +29,7 @@ export default function OpenAccount() {
       });
     } else {
       try {
-        const response = await axios.post(" http://localhost:8080/users", {
+        const response = await axios.post("http://localhost:8080/users", {
           username,
           password,
         });

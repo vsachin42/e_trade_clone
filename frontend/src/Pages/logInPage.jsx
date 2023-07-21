@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from './context/AuthContext';
+import { AuthContext } from '../components/context/AuthContext';
 
 function LogIn() {
   const {isLoggedIn,logIn,logOut,setUserName}=useContext(AuthContext)
@@ -33,7 +33,7 @@ function LogIn() {
       return
     }
     try {
-      const response = await axios.get("https://teal-elegant-monkey.cyclic.app//users")
+      const response = await axios.get("mongodb+srv://soni:soni@cluster0.f78prrs.mongodb.net/trade24?retryWrites=true&w=majority")
       const users = response.data;
       const foundUser = users.find(
         (user) => user.username === username && user.password === password
