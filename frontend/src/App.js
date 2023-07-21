@@ -9,8 +9,8 @@ function App() {
     <>
       <Navbar />
       {/* Your other components and content will go here */}
-    <OpenAccount />
-    {/* <LogIn /> */}
+    {/* <OpenAccount /> */}
+    <LogIn />
     </>
    
   );

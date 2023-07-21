@@ -34,7 +34,7 @@ export default function OpenAccount() {
     } else {
       try {
         if(!name || !password || !email ||!city ||!DOB){
-        //  return alert('please fill all the details')
+          return alert('please fill all the details')
           // toast({
 
           //   title: "please fill all the details",
@@ -48,10 +48,10 @@ export default function OpenAccount() {
           // setEmail("");
           // setCity("");
           // setDob("")
-          toast.error('Please fill all the details',{
-            autoclose:3000,
-            hideProgressBar: true
-          })
+          // toast.error('Please fill all the details',{
+          //   autoclose:3000,
+          //   hideProgressBar: true
+          // })
          
         }
         const response = await axios.post("https://anxious-lamb-fez.cyclic.app/users/register", {
@@ -63,7 +63,7 @@ export default function OpenAccount() {
 
         });
         console.log(response)
-        if (response.status === 201) {
+        if (response.status === 200) {
           toast({
             title: "Signup successful",
             status: "success",
@@ -76,7 +76,7 @@ export default function OpenAccount() {
           setEmail("");
           setCity("");
           setDob("")
-          // navigate("/login")
+           
         }
         if (response.status === 400) {
           toast({

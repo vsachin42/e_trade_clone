@@ -12,18 +12,26 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from '../components/context/AuthContext';
+import { AuthContext } from "../components/context/AuthContext";
 
 function LogIn() {
-  const {isLoggedIn,logIn,logOut,setUserName}=useContext(AuthContext)
-  const [username, setUsername] = useState("");
+  //  const {isLoggedIn,logIn,logOut,setUserName}=useContext(AuthContext)
+
+
+  const{name,setName,isLoggedIn,logIn,logOut}=useContext(AuthContext)
+
+  console.log(isLoggedIn)
+  const[login,setLogin]=useState("")
+ 
+   
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(!username||!password){
+    if(!email||!password){
       toast({
         title:"Please Enter all the fields",
         status:"warning",
@@ -32,61 +40,84 @@ function LogIn() {
       })
       return
     }
-    try {
-      const response = await axios.get("mongodb+srv://soni:soni@cluster0.f78prrs.mongodb.net/trade24?retryWrites=true&w=majority")
+
+    //setting userdata object
+    const userData={
+      email,
+      password
+    }
+
+     try {
+      const response = await axios.post("https://anxious-lamb-fez.cyclic.app/users/login",userData)
       const users = response.data;
-      const foundUser = users.find(
-        (user) => user.username === username && user.password === password
-      );
+      console.log(response,users.token)
 
-      const foundUserName = users.find(
-        (user) => user.username === username && user.password !== password
-      );
+       if(response.data.token){
+        logIn()
+        console.log('user login successfully')
+       }
+      localStorage.setItem("token",users.token)
+
+      //finding user
+      // const foundUser = users.find(
+      //   (user) => user.email === email && user.password === password
+      // );
+      // console.log(foundUser)
+
+
+      // //finding user email
+      // const foundUserEmail = users.find(
+      //   (user) => user.email === email && user.password !== password
+      // );
        
-      const foundUserPassword = users.find(
-        (user) => user.username !== username && user.password === password
-      );
+      // // //finding user password
+      // const foundUserPassword = users.find(
+      //   (user) => user.email !== email && user.password === password
+      // );
 
-      if (foundUserPassword) {
-        toast({
-          title: "Enter Correct Username",
-          status:"error",
-          duration: 3000,
-          isClosable: true,
-        });
+
+      // if (foundUserPassword) {
+      //   toast({
+      //     title: "Enter Correct Email",
+      //     status:"error",
+      //     duration: 3000,
+      //     isClosable: true,
+      //   });
         
-        setUsername("");
+      //     setEmail("");
        
-      }
+      //  }
 
-        if (foundUserName) {
-        toast({
-          title: "Enter Correct Password",
-          status:"error",
-          duration: 3000,
-          isClosable: true,
-        });
+      //   if (foundUserEmail) {
+      //   toast({
+      //     title: "Enter Correct Password",
+      //     status:"error",
+      //     duration: 3000,
+      //     isClosable: true,
+      //   });
         
-        setUsername("");
+      //  setPassword("");
        
-      }
+      // }
         
       
      
       
-      if (foundUser) {
+      if (response.status===200) {
         toast({
           title: "Login successful",
           status: "success",
           duration: 3000,
           isClosable: true,
         });
-        logIn()
+         logIn()
+        setEmail("")
+        setPassword("")
 
-        setUsername("");
-        setPassword("");
-        setUserName(username)
-        navigate("/");
+
+     
+        // setUserName(username)
+        // navigate("/");
       }
     } catch (error) {
       console.error(error);
@@ -103,12 +134,12 @@ function LogIn() {
     <Box p={4}width={"40%"} marginLeft={"450px"} marginTop={"100px"} >
       <form onSubmit={handleSubmit}>
         <VStack spacing={4}>
-          <FormControl id="username">
-            <FormLabel>Username</FormLabel>
+          <FormControl id="email">
+            <FormLabel>Email</FormLabel>
             <Input
-              type="text"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
           </FormControl>
           <FormControl id="password">
