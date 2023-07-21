@@ -1,0 +1,11 @@
+.flex .nav-link:hover {
+    color: #241056;
+    text-decoration: underline;
+    text-decoration-color: yellowgreen;
+  }
+
+  .flexupper .nav-upper:hover {
+    color: white;
+    text-decoration: underline;
+    text-decoration-color: yellowgreen;
+  }
