@@ -244,14 +244,7 @@ const Navbar = () => {
         {/* Right Side */}
         <Flex alignItems="center" >
           {/* Login */}
-          <Box mx={0} mr={2}>
-            {/* <Menu>
-              <MenuButton as={IconButton} aria-label="Login" icon={<FaUserCircle />} variant="ghost" />
-              <MenuList>
-                <MenuItem>Login</MenuItem>
-                <MenuItem>Sign Up</MenuItem>
-              </MenuList>
-            </Menu> */}
+          {/* <Box >
             <Popover>
               <PopoverTrigger>
                 <IconButton aria-label="Login" icon={<FaUserCircle />} variant="ghost" />
@@ -261,20 +254,18 @@ const Navbar = () => {
                         <PopoverBody> 
                           <Link to="/login">Login</Link><br/>
                           <Link to="/signup">Sign Up</Link><br/>
-                          <Link to="/faq">FAQ's</Link><br/>
-                          <Link to="/whishlist">Whishlist</Link><br/>
                       </PopoverBody>
                     </PopoverContent>
             </Popover>
-          </Box>
+          </Box> */}
 
           {/* Notification */}
-          <Box mx={4}>
-            <IconButton aria-label="Notification" icon={<FaBell />} variant="ghost" />
+          <Box >
+            <Button>Login/Signup</Button>
           </Box>
 
           {/* Cart */}
-          <Box mx={4}>
+          <Box mr={4}>
             <IconButton aria-label="Cart" icon={<FaShoppingCart />} variant="ghost" />
           </Box>
 

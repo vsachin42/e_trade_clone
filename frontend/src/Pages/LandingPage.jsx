@@ -131,7 +131,7 @@ const activeStyle = {
       </Box>
     </Box>
 
-    <Box bgColor="white" height="600px" mt="50px" ml="150px" width="80%" border="1px solid red">
+    <Box bgColor="white" height="600px" mt="50px" ml="150px" width="80%">
       <Text color="black" textAlign="center" fontSize="33px" fontWeight="500" mt="50px">Frequently asked questions</Text>
       <Text textAlign="center"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>See all FAQs</NavLink></Text>
       <Box width="80%" ml="110px" mt="80px">
@@ -271,24 +271,46 @@ const activeStyle = {
       <Button bgColor="#5627D8" borderRadius="none" color="white" mt="30px" ml="520px">Open an account</Button>
     </Box>
 
-    <Box bgColor="#F6F6F6" height="500px" mt="50px" width="100%">
-      <Heading color="black" textAlign="center" size="lg" fontWeight="500" pt="25px">A one-stop shop for your financial goals</Heading>
-      <Text textAlign="center" paddingTop="10px">New to online investing? <NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Start here</NavLink></Text>
-      <Box style={{display:"grid", gridTemplateColumns:"repeat(3,1fr)",gap:"20px",marginTop:"50px"}}>
+    <Box bgColor="#EEEEEE" height="500px" mt="50px" width="100%">
+      <Box style={{display:"grid",paddingTop:"70px", margin:"auto",gridTemplateColumns:"repeat(4,1fr)",gap:"20px",marginTop:"50px", width:"70%"}}>
        
        {/* 1 */}
-        <Box bgColor="white" ml="40px" pl="25px" w="90%">
-          
+        <Box  ml="40px" pl="25px" w="90%"  >
+          <Text fontSize="16px" fontWeight="600">About Us</Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Company Overview</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Investor Relations</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Newsroom</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Careers</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Privacy</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>About Our Ads</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Accessibility at E*TRADE</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Your Privacy Choices </NavLink></Text>
         </Box>
 
         {/* 2 */}
-        <Box bgColor="white" ml="20px" pl="25px" w="90%">
-         
+        <Box  ml="20px" pl="25px" w="90%" >
+          <Text fontSize="16px" fontWeight="600">Service</Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Contact Us</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>FAQs</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Forms and Applications</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Financial Consultants</NavLink></Text>
         </Box>
 
         {/* 3 */}
-        <Box bgColor="white" mr="20px" pl="25px" w="90%">
-          
+        <Box  mr="20px" pl="25px" w="90%" >
+          <Text fontSize="16px" fontWeight="600">Quick Links</Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Open An Account</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Fund My Account</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Cash Management</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Stock Plans</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Executive Services</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Security Center</NavLink></Text>
+          <Text pt="20px" fontSize="13px"><NavLink style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Site Map</NavLink></Text>
+        </Box>
+        {/* 4 */}
+        <Box  mr="20px" pl="25px" w="90%" >
+           <Text fontSize="16px" fontWeight="600">Connect with us</Text>
+           <Image src="./Images/connect.png" mt="15px" ml="-7px"/>
         </Box>
 
       </Box>
