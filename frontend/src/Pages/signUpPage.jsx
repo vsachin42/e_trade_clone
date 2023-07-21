@@ -12,8 +12,12 @@ import {
 import { useNavigate } from "react-router";
 
 export default function OpenAccount() {
-  const [username, setUsername] = useState("");
+  const [name, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const[email,setEmail]=useState("")
+  const[city,setCity]=useState("")
+  const[DOB,setDob]=useState("")
+
   const [confirmPassword, setConfirmPassword] = useState("");
   const toast = useToast();
   const navigate=useNavigate()
@@ -29,10 +33,36 @@ export default function OpenAccount() {
       });
     } else {
       try {
-        const response = await axios.post("http://localhost:8080/users", {
-          username,
+        if(!name || !password || !email ||!city ||!DOB){
+        //  return alert('please fill all the details')
+          // toast({
+
+          //   title: "please fill all the details",
+          //   status: "failure",
+          //   duration: 3000,
+          //   isClosable: true,
+          // });
+          // setUsername("");
+          // setPassword("");
+          // setConfirmPassword("");
+          // setEmail("");
+          // setCity("");
+          // setDob("")
+          toast.error('Please fill all the details',{
+            autoclose:3000,
+            hideProgressBar: true
+          })
+         
+        }
+        const response = await axios.post("https://anxious-lamb-fez.cyclic.app/users/register", {
+          name,
           password,
+          email,
+          city,
+          DOB,
+
         });
+        console.log(response)
         if (response.status === 201) {
           toast({
             title: "Signup successful",
@@ -43,10 +73,28 @@ export default function OpenAccount() {
           setUsername("");
           setPassword("");
           setConfirmPassword("");
-          navigate("/login")
+          setEmail("");
+          setCity("");
+          setDob("")
+          // navigate("/login")
+        }
+        if (response.status === 400) {
+          toast({
+            title: "User already registered please go to login page",
+            status: "failure",
+            duration: 3000,
+            isClosable: true,
+          });
+          setUsername("");
+          setPassword("");
+          setConfirmPassword("");
+          setEmail("");
+          setCity("");
+          setDob("")
+          // navigate("/login")
         }
       } catch (error) {
-        console.error(error);
+        console.error(error.message);
         toast({
           title: "Signup failed",
           status: "error",
@@ -61,14 +109,44 @@ export default function OpenAccount() {
     <Box p={4}width={"40%"} marginLeft={"450px"} marginTop={"100px"} >
       <form onSubmit={handleSubmit}>
         <VStack spacing={4}>
-          <FormControl id="username">
-            <FormLabel>Username</FormLabel>
+          <FormControl id="name">
+            <FormLabel>name</FormLabel>
             <Input
               type="text"
-              value={username}
+              value={name}
               onChange={(event) => setUsername(event.target.value)}
             />
           </FormControl>
+          {/* adding email */}
+          <FormControl id="email">
+            <FormLabel>Email</FormLabel>
+            <Input
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          </FormControl>
+          {/* adding city */}
+          <FormControl id="city">
+            <FormLabel>City</FormLabel>
+            <Input
+              type="city"
+              value={city}
+              onChange={(event) => setCity(event.target.value)}
+            />
+          </FormControl>
+
+
+          {/* adding age */}
+          <FormControl id="DOB">
+            <FormLabel>DOB</FormLabel>
+            <Input
+              type="age"
+              value={DOB}
+              onChange={(event) => setDob(event.target.value)}
+            />
+          </FormControl>
+          
           <FormControl id="password">
             <FormLabel>Password</FormLabel>
             <Input
