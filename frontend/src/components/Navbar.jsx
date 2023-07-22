@@ -52,7 +52,7 @@ const Navbar = () => {
    
   return (<>
     <Box className="main" bg="white" boxShadow="rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px">
-        <Flex className='flexupper' bg="#241056"  color="white" alignItems="center"  px={4} py={2} ml="15%" w="100%">
+        <Flex className='flexupper' bg="#241056"  color="white" alignItems="center"  px={4} py={2} ml="15%" w="85%">
         <Box>
              <Link className="nav-upper" to="/aboutus"><b>About Us</b></Link>
           </Box>
