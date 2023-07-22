@@ -169,5 +169,5 @@ export default function OpenAccount() {
         </VStack>
       </form>
     </Box>
-  )
+  );
 }

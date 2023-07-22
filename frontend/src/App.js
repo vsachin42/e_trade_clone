@@ -1,19 +1,19 @@
 import React from 'react';
-
+// import { ChakraProvider } from '@chakra-ui/react';
+// import Navbar from './components/Navbar';
+// import Navbar from './components/xyz';
+// import { BrowserRouter } from 'react-router-dom';
+import { LandingPage } from './Pages/LandingPage';
+import IndexSensex from './components/IndexSensex';
 import Navbar from './components/Navbar';
-import LogIn from './Pages/logInPage';
-import OpenAccount from './Pages/signUpPage';
+import AllRoutes from './components/AllRoutes';
 
 function App() {
-  return (
-    <>
-      <Navbar />
-      {/* Your other components and content will go here */}
-    {/* <OpenAccount /> */}
-    <LogIn />
-    </>
-   
-  );
+  return (<>
+      <Navbar/>
+      {/* <LandingPage/> */}
+      <AllRoutes/>
+      </>);
 }
 
 export default App;

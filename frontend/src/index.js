@@ -5,21 +5,22 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
-import { AuthContextProvider } from './components/context/AuthContext';
-import { Provider } from 'react';
-import store from "./redux/store"
+import { AuthContextProvider } from './context/AuthContext';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+root.render(<BrowserRouter>
     <AuthContextProvider>
-  <BrowserRouter>
+  
   <ChakraProvider>
-  <Provider store={store}>
+    <Provider store={store}>
     <App />
     </Provider>
     </ChakraProvider>
-    </BrowserRouter>
+    
     </AuthContextProvider>
+    </BrowserRouter>
   
 );
 
