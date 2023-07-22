@@ -1,13 +1,18 @@
 import React from 'react';
-import { ChakraProvider } from '@chakra-ui/react';
+
 import Navbar from './components/Navbar';
+import LogIn from './Pages/logInPage';
+import OpenAccount from './Pages/signUpPage';
 
 function App() {
   return (
-    <ChakraProvider>
+    <>
       <Navbar />
       {/* Your other components and content will go here */}
-    </ChakraProvider>
+    {/* <OpenAccount /> */}
+    <LogIn />
+    </>
+   
   );
 }
 
