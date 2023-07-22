@@ -5,15 +5,22 @@ export  const AuthContext=createContext()
 
 function AuthContextProvider({children}){
 
+  //isLoggedIn will determined whether user is login or not
+
     const[isLoggedIn,setIsLoggedIn]=useState(false)
-    const[username,setUserName]=useState("")
+    const[name,setName]=useState("")
+
     const toast=useToast()
+   
+    //when user login sucessfully called the login function
     const logIn=()=>{
         setIsLoggedIn(true)
     }
-
+ 
+    ////when user logout sucessfully called the logout function
     const logOut=()=>{
         setIsLoggedIn(false)
+        
        
             toast({
               title: "LogOut successful",
@@ -25,7 +32,7 @@ function AuthContextProvider({children}){
   
     return (
         <>
-        <AuthContext.Provider value={{isLoggedIn,logIn,logOut,username,setUserName}} >
+        <AuthContext.Provider value={{isLoggedIn,logIn,logOut,name,setName}} >
           {children}
 
         </AuthContext.Provider>
