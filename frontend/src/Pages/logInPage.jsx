@@ -4,15 +4,27 @@ import { useState } from "react";
 import {
   Box,
   Button,
+  Flex,
   FormControl,
   FormLabel,
   Input,
+  Text,
   VStack,
+  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../components/context/AuthContext";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
 
 function LogIn() {
   //  const {isLoggedIn,logIn,logOut,setUserName}=useContext(AuthContext)
@@ -28,6 +40,11 @@ function LogIn() {
   const [password, setPassword] = useState("");
   const toast = useToast();
   const navigate = useNavigate();
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
+    
+      const initialRef = React.useRef(null)
+      const finalRef = React.useRef(null)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -50,58 +67,13 @@ function LogIn() {
      try {
       const response = await axios.post("https://anxious-lamb-fez.cyclic.app/users/login",userData)
       const users = response.data;
-      console.log(response,users.token)
+      console.log(response,users.token,users)
 
        if(response.data.token){
         logIn()
         console.log('user login successfully')
        }
       localStorage.setItem("token",users.token)
-
-      //finding user
-      // const foundUser = users.find(
-      //   (user) => user.email === email && user.password === password
-      // );
-      // console.log(foundUser)
-
-
-      // //finding user email
-      // const foundUserEmail = users.find(
-      //   (user) => user.email === email && user.password !== password
-      // );
-       
-      // // //finding user password
-      // const foundUserPassword = users.find(
-      //   (user) => user.email !== email && user.password === password
-      // );
-
-
-      // if (foundUserPassword) {
-      //   toast({
-      //     title: "Enter Correct Email",
-      //     status:"error",
-      //     duration: 3000,
-      //     isClosable: true,
-      //   });
-        
-      //     setEmail("");
-       
-      //  }
-
-      //   if (foundUserEmail) {
-      //   toast({
-      //     title: "Enter Correct Password",
-      //     status:"error",
-      //     duration: 3000,
-      //     isClosable: true,
-      //   });
-        
-      //  setPassword("");
-       
-      // }
-        
-      
-     
       
       if (response.status===200) {
         toast({
@@ -130,31 +102,76 @@ function LogIn() {
     }
   };
 
-  return (
-    <Box p={4}width={"40%"} marginLeft={"450px"} marginTop={"100px"} >
-      <form onSubmit={handleSubmit}>
-        <VStack spacing={4}>
-          <FormControl id="email">
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </FormControl>
-          <FormControl id="password">
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </FormControl>
-          <Button type="submit">Login</Button>
-        </VStack>
-      </form>
-    </Box>
-  );
-}
+  const defaultStyle = {
+    color:"red"
+  }
+  const activeStyle = {
+    color:"blue"
+  }
+
+  return (<>
+    {/* // <Box p={4}width={"40%"} marginLeft={"450px"} marginTop={"100px"} >
+    //   <form onSubmit={handleSubmit}>
+    //     <VStack spacing={4}>
+    //       <FormControl id="email">
+    //         <FormLabel>Email</FormLabel>
+    //         <Input
+    //           type="email"
+    //           value={email}
+    //           onChange={(event) => setEmail(event.target.value)}
+    //         />
+    //       </FormControl>
+    //       <FormControl id="password">
+    //         <FormLabel>Password</FormLabel>
+    //         <Input
+    //           type="password"
+    //           value={password}
+    //           onChange={(event) => setPassword(event.target.value)}
+    //         />
+    //       </FormControl>
+    //       <Flex style={{dispaly:"flex",justifyContent:"space-between", alignItems:"center", width:"300px"}}>
+    //       <Button type="submit">Login</Button>
+    //       <Text fontSize="13px"><NavLink to="/signup" style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Create New Account</NavLink></Text>
+    //       </Flex>
+    //     </VStack>
+    //   </form>
+    // </Box> */}
+          <Button onClick={onOpen}><Link to="login">Login/SignUp</Link></Button>
+    
+          <Modal
+            initialFocusRef={initialRef}
+            finalFocusRef={finalRef}
+            isOpen={isOpen}
+            onClose={onClose}
+          >
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Login</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody pb={6}>
+                <FormControl>
+                  <FormLabel>Email</FormLabel>
+                  <Input ref={initialRef} placeholder='Enter your email' type="email"
+                    value={email} onChange={(event) => setEmail(event.target.value)}/>
+                </FormControl>
+    
+                <FormControl mt={4}>
+                  <FormLabel>Password</FormLabel>
+                  <Input  placeholder='Enter your password' type="password"
+                    value={password} onChange={(event) => setPassword(event.target.value)}/>
+                </FormControl>
+              </ModalBody>
+    
+              <ModalFooter>
+                <Button colorScheme='blue' mr={3} onClick={handleSubmit}>
+                  LogIn
+                </Button>
+                <Button onClick={onClose}>Create your account</Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+          </>
+      )
+  }
 
 export default LogIn;
