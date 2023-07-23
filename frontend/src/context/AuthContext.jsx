@@ -19,14 +19,16 @@ function AuthContextProvider({children}){
  
     ////when user logout sucessfully called the logout function
     const logOut=()=>{
+     
         setIsLoggedIn(false)
-        
+        // localStorage.setItem('isAuth',isLoggedIn)
        
             toast({
               title: "LogOut successful",
               status: "success",
-              duration: 3000,
+              duration: 5000,
               isClosable: true,
+              position:"top-right"
             });
     }
   

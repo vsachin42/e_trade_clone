@@ -12,6 +12,8 @@ const AllRoutes = () => {
         <Route path='/' element={<LandingPage/>}/>
         <Route path="/stocks" element={<IndexSensex/>} />
         <Route path='/stock/:id'/>
+        <Route path="/OpenAccount" element={<OpenAccount/>} />
+        
        </Routes> 
   );
 }

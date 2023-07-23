@@ -2,6 +2,17 @@ import React, { useContext } from 'react'
 
 import { useState } from "react";
 import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  Image,
+} from '@chakra-ui/react'
+import {
   Box,
   Button,
   Flex,
@@ -25,14 +36,22 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react'
+import OpenAccount from './signUpPage';
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import LogOut from '../components/LogOut';
+
+
 
 function LogIn() {
   //  const {isLoggedIn,logIn,logOut,setUserName}=useContext(AuthContext)
 
 
-  const{name,setName,isLoggedIn,logIn,logOut}=useContext(AuthContext)
+  const{setName,isLoggedIn,logIn,logOut}=useContext(AuthContext)
+  const name=localStorage.getItem("name")
+   const isAuth=localStorage.getItem("isAuth")
+   
 
-  console.log(isLoggedIn)
+  // console.log(isLoggedIn)
   const[login,setLogin]=useState("")
  
    
@@ -67,20 +86,28 @@ function LogIn() {
      try {
       const response = await axios.post("https://anxious-lamb-fez.cyclic.app/users/login",userData)
       const users = response.data;
-      console.log(response,users.token,users)
+      
+      console.log(response,users.token,users.name)
 
        if(response.data.token){
         logIn()
+        navigate("/")
         console.log('user login successfully')
        }
+
+
       localStorage.setItem("token",users.token)
-      
+      localStorage.setItem("name",users.name)
+      localStorage.setItem('isAuth',isLoggedIn)
+       
+   
       if (response.status===200) {
         toast({
           title: "Login successful",
           status: "success",
-          duration: 3000,
+          duration: 5000,
           isClosable: true,
+          position:"top-right"
         });
          logIn()
         setEmail("")
@@ -110,67 +137,78 @@ function LogIn() {
   }
 
   return (<>
-    {/* // <Box p={4}width={"40%"} marginLeft={"450px"} marginTop={"100px"} >
-    //   <form onSubmit={handleSubmit}>
-    //     <VStack spacing={4}>
-    //       <FormControl id="email">
-    //         <FormLabel>Email</FormLabel>
-    //         <Input
-    //           type="email"
-    //           value={email}
-    //           onChange={(event) => setEmail(event.target.value)}
-    //         />
-    //       </FormControl>
-    //       <FormControl id="password">
-    //         <FormLabel>Password</FormLabel>
-    //         <Input
-    //           type="password"
-    //           value={password}
-    //           onChange={(event) => setPassword(event.target.value)}
-    //         />
-    //       </FormControl>
-    //       <Flex style={{dispaly:"flex",justifyContent:"space-between", alignItems:"center", width:"300px"}}>
-    //       <Button type="submit">Login</Button>
-    //       <Text fontSize="13px"><NavLink to="/signup" style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Create New Account</NavLink></Text>
-    //       </Flex>
-    //     </VStack>
-    //   </form>
-    // </Box> */}
+  
+  
+           {!isLoggedIn || !isAuth? <>
           <Button onClick={onOpen}><Link to="login">Login/SignUp</Link></Button>
-    
+                
           <Modal
+            
             initialFocusRef={initialRef}
             finalFocusRef={finalRef}
             isOpen={isOpen}
-            onClose={onClose}
+             onClose={onClose}
+            size={'80%'}
+            
+             
           >
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent
+
+
+            
+            >
               <ModalHeader>Login</ModalHeader>
               <ModalCloseButton />
               <ModalBody pb={6}>
+                <Flex>
+                     {/* Left side (login form) */}
+              <Box flex="1" marginLeft={'10px'} boxSize={'md'}>
                 <FormControl>
                   <FormLabel>Email</FormLabel>
-                  <Input ref={initialRef} placeholder='Enter your email' type="email"
+                  <Input width={'md'}  ref={initialRef} placeholder='Enter your email' type="email"
                     value={email} onChange={(event) => setEmail(event.target.value)}/>
                 </FormControl>
     
                 <FormControl mt={4}>
                   <FormLabel>Password</FormLabel>
-                  <Input  placeholder='Enter your password' type="password"
+                  <Input width={'md'} placeholder='Enter your password' type="password"
                     value={password} onChange={(event) => setPassword(event.target.value)}/>
                 </FormControl>
+                </Box>
+
+                 {/* Right side (image) */}
+              <Box flex="1" ml={4}>
+                {/* Add your image here */}
+                <Image src="Images/login.jpg" alt="Background Image" />
+              </Box>
+
+                </Flex>
               </ModalBody>
     
               <ModalFooter>
-                <Button colorScheme='blue' mr={3} onClick={handleSubmit}>
+                <Button colorScheme='blue' mr={3} onClick={handleSubmit} >
                   LogIn
                 </Button>
-                <Button onClick={onClose}>Create your account</Button>
+                <Button  onClick={onClose} ><Link to="OpenAccount"> Create your account</Link></Button>
               </ModalFooter>
             </ModalContent>
           </Modal>
-          </>
+
+         
+           </> : <> <Menu>
+  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+    {name}
+  </MenuButton>
+  <MenuList>
+    <MenuItem>My Portfolio</MenuItem>
+    <MenuItem onClick={logOut}>Logout</MenuItem>
+    {/* <MenuItem>Mark as Draft</MenuItem>
+    <MenuItem>Delete</MenuItem>
+    <MenuItem>Attend a Workshop</MenuItem> */}
+  </MenuList>
+</Menu> </> }
+           </>   
       )
   }
 
