@@ -19,7 +19,8 @@ function AuthContextProvider({children}){
  
     ////when user logout sucessfully called the logout function
     const logOut=()=>{
-     
+      
+      
         setIsLoggedIn(false)
         // localStorage.setItem('isAuth',isLoggedIn)
        
@@ -31,6 +32,7 @@ function AuthContextProvider({children}){
               position:"top-right"
             });
     }
+    console.log(isLoggedIn)
   
     return (
         <>

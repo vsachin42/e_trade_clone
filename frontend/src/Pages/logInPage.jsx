@@ -40,6 +40,7 @@ import {
 import OpenAccount from './signUpPage';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import LogOut from '../components/LogOut';
+import { LandingPage } from './LandingPage';
 
 
 
@@ -67,6 +68,7 @@ function LogIn() {
 
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
+  console.log(isLoggedIn)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -102,7 +104,7 @@ function LogIn() {
       localStorage.setItem("token", users.token)
       localStorage.setItem("name", users.name)
       localStorage.setItem('isAuth', isLoggedIn)
-
+      
 
       if (response.status === 200) {
         toast({
@@ -140,31 +142,32 @@ function LogIn() {
   }
 
   return (<>
+       
 
-
-    {!isLoggedIn || !isAuth ? <>
+    { !isAuth ? <>
       <Button onClick={onOpen}><Link to="login">Login/SignUp</Link></Button>
+     
 
       <Modal
 
-
+        
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={onClose}
-        size={'80%'}
-       
+        size={'50%'}
+       width="600px"
        
       >
         <ModalOverlay />
         <ModalContent
 
-
+        width={'80%'}
 
         >
           <ModalHeader>Login</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>
+          <ModalBody  pb={6}>
             <Flex justifyContent={'space-between'} padding={'50px'}  flexDirection={{ base: "column", md: "row" }}>
               {/* Left side (login form) */}
               <Box marginTop={'100px'} flex={{ base: "1", md: "1" }}>
