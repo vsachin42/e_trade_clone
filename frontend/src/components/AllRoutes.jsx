@@ -5,6 +5,7 @@ import IndexSensex from './IndexSensex';
 import OpenAccount from '../Pages/signUpPage';
 import { LandingPage } from '../Pages/LandingPage';
 import LogIn from '../Pages/logInPage';
+import PrivateRoute from './PrivateRoute';
 
 const AllRoutes = () => {
   return (
@@ -12,6 +13,7 @@ const AllRoutes = () => {
         <Route path='/' element={<LandingPage/>}/>
         <Route path="/stocks" element={<IndexSensex/>} />
         <Route path='/stock/:id'/>
+        <Route path='/login' element={<LogIn />}/>
         <Route path="/OpenAccount" element={<OpenAccount/>} />
         
        </Routes> 
