@@ -5,6 +5,8 @@ import IndexSensex from './IndexSensex';
 import OpenAccount from '../Pages/signUpPage';
 import { LandingPage } from '../Pages/LandingPage';
 import LogIn from '../Pages/logInPage';
+import { AdminLogin } from '../AdminPage/AdminLogin';
+import { AdminHome } from '../AdminPage/AdminHome';
 
 const AllRoutes = () => {
   return (
@@ -12,6 +14,9 @@ const AllRoutes = () => {
         <Route path='/' element={<LandingPage/>}/>
         <Route path="/stocks" element={<IndexSensex/>} />
         <Route path='/stock/:id'/>
+        <Route path="/OpenAccount" element={<OpenAccount/>} />
+        <Route path="/admin-login" element={<AdminLogin/>}/>
+        <Route path="/admin-home" element={<AdminHome/>}/>
        </Routes> 
   );
 }
