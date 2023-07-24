@@ -35,7 +35,7 @@ function LogIn() {
   const { isLoggedIn, logIn, logOut } = useContext(AuthContext);
   const name = localStorage.getItem("name");
   let isAuth = localStorage.getItem("isAuth")
-  console.log(isAuth)
+  // console.log(isAuth)
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,12 +71,14 @@ function LogIn() {
         const response = await axios.post("https://anxious-lamb-fez.cyclic.app/users/login", userData)
         const users = response.data;
   
-        console.log(response, users.token, users.name)
+        // console.log(response, users.token, users.name)
   
         if (response.data.token) {
+          localStorage.setItem("userID",response.data.id)
+          // localStorage.setItem("isAuth")
            logIn()
           navigate("/")
-          console.log('user login successfully')
+          // console.log('user login successfully')
   
            localStorage.setItem("token", users.token)
            localStorage.setItem("name", users.name)
@@ -106,7 +108,7 @@ function LogIn() {
           // navigate("/");
         }
       } catch (error) {
-        console.error(error);
+        // console.error(error);
         toast({
 
           title: "Login failed",

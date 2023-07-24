@@ -42,9 +42,10 @@ const SingleProduct = () => {
   }
 
   const handleAddTocart = ()=>{
+
   
-    const {isAuth}=JSON.parse(localStorage.getItem("isAuth"))
-    if(isAuth === false) navigate("/OpenAccount")
+    const isAuth=JSON.parse(localStorage.getItem("isAuth"))
+    if(!isAuth) navigate("/OpenAccount")
     else{
       addItemInCart(localStorage.getItem("userID"))
     }

@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 import Footer from '../components/Footer'
 
 export const LandingPage = () => {
+ 
 
   const data = [{
     id:1,

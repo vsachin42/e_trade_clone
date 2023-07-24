@@ -12,6 +12,7 @@ import AddToCart from '../Pages/AddToCart';
 
 import { AdminLogin } from '../AdminPage/AdminLogin';
 import { AdminHome } from '../AdminPage/AdminHome';
+import PrivateRoute from './PrivateRoute';
 
 
 const AllRoutes = () => {
@@ -21,7 +22,7 @@ const AllRoutes = () => {
         <Route path="/stocks" element={<IndexSensex/>} />
 
         <Route path='/stock/:id' element={<SingleProduct/>}/>
-        <Route path='/addcart' element={<AddToCart/>} />
+        <Route path='/addcart' element={<PrivateRoute><AddToCart/></PrivateRoute>} />
 
         <Route path='/stock/:id'/>
 

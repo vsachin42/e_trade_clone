@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import { LandingPage } from "./LandingPage";
+import { Link } from "react-router-dom";
 
 export default function OpenAccount() {
   const [isOpen, setIsOpen] = useState(true);
@@ -79,7 +80,7 @@ export default function OpenAccount() {
           DOB,
 
         });
-        console.log(response)
+        // console.log(response)
         if (response.status === 200) {
           toast({
             title: "Signup successful",
@@ -111,7 +112,7 @@ export default function OpenAccount() {
            navigate("/login")
         }
       } catch (error) {
-        console.error(error.message);
+        // console.error(error.message);
         toast({
           title: "User already registered please go to login page",
           status: "error",
@@ -203,6 +204,9 @@ export default function OpenAccount() {
           </Button>
           <Button type="submit" colorScheme="green" onClick={handleSubmit}>
             Signup
+          </Button>
+          <Button marginLeft={"12px"} type="submit" colorScheme="green" >
+           <Link to={"/"}> login</Link>
           </Button>
         </ModalFooter>
       </ModalContent>
