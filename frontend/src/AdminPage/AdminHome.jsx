@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserDisplayCard } from "./UserDisplayCard";
 import "./AdminUserCard.css"
-import { CreditCardsDisplay } from "./CreditCardsDisplay";
+import { CreditCardsDisplay } from "./StockCardsDisplay";
 import { AddCards } from "./AddCards";
 
 export const AdminHome = () => {
@@ -45,7 +45,7 @@ export const AdminHome = () => {
   }
 
   function getUserLoans(){
-    axios.get("https://creditguru.onrender.com/users2")
+    axios.get("https://anxious-lamb-fez.cyclic.app/users2")
     .then((res)=>{
         setLoanData(res.data);
     })
