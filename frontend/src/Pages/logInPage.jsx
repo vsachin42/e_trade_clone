@@ -1,20 +1,23 @@
-import React, { useContext } from 'react'
 
-import { useState } from "react";
+import React, { useContext, useState } from 'react';
 import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Image,
   Box,
   Button,
   Flex,
   FormControl,
   FormLabel,
   Input,
-  Text,
-  VStack,
   useDisclosure,
   useToast,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import {
   Modal,
@@ -24,154 +27,198 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import { LandingPage } from './LandingPage';
 
 function LogIn() {
-  //  const {isLoggedIn,logIn,logOut,setUserName}=useContext(AuthContext)
+  const { isLoggedIn, logIn, logOut } = useContext(AuthContext);
+  const name = localStorage.getItem("name");
+  let isAuth = localStorage.getItem("isAuth")
+  console.log(isAuth)
 
-
-  const{name,setName,isLoggedIn,logIn,logOut}=useContext(AuthContext)
-
-  console.log(isLoggedIn)
-  const[login,setLogin]=useState("")
- 
-   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
   const navigate = useNavigate();
-
-  const { isOpen, onOpen, onClose } = useDisclosure()
-    
-      const initialRef = React.useRef(null)
-      const finalRef = React.useRef(null)
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    if(!email||!password){
-      toast({
-        title:"Please Enter all the fields",
-        status:"warning",
-        duration:3000,
-        isClosable:true
-      })
-      return
-    }
+    // Your login logic remains the same
+    // ...
+   
+      event.preventDefault();
+      if (!email || !password) {
 
-    //setting userdata object
-    const userData={
-      email,
-      password
-    }
-
-     try {
-      const response = await axios.post("https://anxious-lamb-fez.cyclic.app/users/login",userData)
-      const users = response.data;
-      console.log(response,users.token,users)
-
-       if(response.data.token){
-        logIn()
-        console.log('user login successfully')
-       }
-      localStorage.setItem("token",users.token)
-      
-      if (response.status===200) {
         toast({
-          title: "Login successful",
-          status: "success",
+          title: "Please Enter all the fields",
+          status: "warning",
+          duration: 3000,
+          isClosable: true
+        })
+        return
+      }
+  
+      //setting userdata object
+      const userData = {
+        email,
+        password
+      }
+  
+      try {
+        const response = await axios.post("https://anxious-lamb-fez.cyclic.app/users/login", userData)
+        const users = response.data;
+  
+        console.log(response, users.token, users.name)
+  
+        if (response.data.token) {
+           logIn()
+          navigate("/")
+          console.log('user login successfully')
+  
+           localStorage.setItem("token", users.token)
+           localStorage.setItem("name", users.name)
+           localStorage.setItem('isAuth', true)
+        }
+  
+  
+    
+        
+  
+        if (response.status === 200) {
+          toast({
+            title: "Login successful",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "top-right"
+          });
+          localStorage.setItem('isAuth', true)
+          logIn()
+          setEmail("")
+          setPassword("")
+  
+  
+  
+          // setUserName(username)
+          // navigate("/");
+        }
+      } catch (error) {
+        console.error(error);
+        toast({
+
+          title: "Login failed",
+          status: "error",
           duration: 3000,
           isClosable: true,
         });
-         logIn()
-        setEmail("")
-        setPassword("")
-
-
-     
-        // setUserName(username)
-        // navigate("/");
       }
-    } catch (error) {
-      console.error(error);
-      toast({
-        title: "Login failed",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
+    };
+
+  
+
+  const handleLogout = () => {
+    logOut();
+    localStorage.clear(); // Clear all user-related data from local storage
   };
 
-  const defaultStyle = {
-    color:"red"
-  }
-  const activeStyle = {
-    color:"blue"
-  }
+  const [isSmallerThanMd] = useMediaQuery("(max-width: 48em)")
 
-  return (<>
-    {/* // <Box p={4}width={"40%"} marginLeft={"450px"} marginTop={"100px"} >
-    //   <form onSubmit={handleSubmit}>
-    //     <VStack spacing={4}>
-    //       <FormControl id="email">
-    //         <FormLabel>Email</FormLabel>
-    //         <Input
-    //           type="email"
-    //           value={email}
-    //           onChange={(event) => setEmail(event.target.value)}
-    //         />
-    //       </FormControl>
-    //       <FormControl id="password">
-    //         <FormLabel>Password</FormLabel>
-    //         <Input
-    //           type="password"
-    //           value={password}
-    //           onChange={(event) => setPassword(event.target.value)}
-    //         />
-    //       </FormControl>
-    //       <Flex style={{dispaly:"flex",justifyContent:"space-between", alignItems:"center", width:"300px"}}>
-    //       <Button type="submit">Login</Button>
-    //       <Text fontSize="13px"><NavLink to="/signup" style={({isActive})=>{return isActive ? activeStyle : defaultStyle}}>Create New Account</NavLink></Text>
-    //       </Flex>
-    //     </VStack>
-    //   </form>
-    // </Box> */}
-          <Button onClick={onOpen}><Link to="login">Login/SignUp</Link></Button>
-    
+  return (
+    <Box>
+
+
+      {isLoggedIn ? (
+        <Menu>
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            {name}
+          </MenuButton>
+          <MenuList>
+            <MenuItem>My Portfolio</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </MenuList>
+        </Menu>
+      ) : (
+         
+        <>
+        
+        {/* <LandingPage /> */}
+          <Button onClick={onOpen}>
+            <Link to="">Login/SignUp</Link>
+          </Button>
+         
+
           <Modal
             initialFocusRef={initialRef}
             finalFocusRef={finalRef}
             isOpen={isOpen}
             onClose={onClose}
+            size={'100%'}
+            width="600px"
           >
+            {/* The rest of your modal content remains the same */}
+            {/* ... */}
+
             <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Login</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody pb={6}>
+        <ModalContent
+
+        width={'80%'}
+
+        >
+          <ModalHeader>Login</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody  pb={6}>
+            <Flex  justifyContent={'space-between'} padding={'50px'}  flexDirection={{ base: "column", md: "row" }}>
+              {/* Left side (login form) */}
+              <Box marginTop={'100px'} flex={{ base: "1", md: "1" }}>
                 <FormControl>
                   <FormLabel>Email</FormLabel>
-                  <Input ref={initialRef} placeholder='Enter your email' type="email"
-                    value={email} onChange={(event) => setEmail(event.target.value)}/>
+                  <Input width={'2xs'} ref={initialRef} placeholder='Enter your email' type="email"
+                    value={email} onChange={(event) => setEmail(event.target.value)} />
                 </FormControl>
-    
+
                 <FormControl mt={4}>
                   <FormLabel>Password</FormLabel>
-                  <Input  placeholder='Enter your password' type="password"
-                    value={password} onChange={(event) => setPassword(event.target.value)}/>
+                  <Input width={'2xs'} placeholder='Enter your password' type="password"
+                    value={password} onChange={(event) => setPassword(event.target.value)} />
                 </FormControl>
-              </ModalBody>
-    
-              <ModalFooter>
-                <Button colorScheme='blue' mr={3} onClick={handleSubmit}>
-                  LogIn
-                </Button>
-                <Button onClick={onClose}>Create your account</Button>
-              </ModalFooter>
-            </ModalContent>
+              </Box>
+
+              {/* Right side (image) */}
+              {
+              // isLargerThanSm &&
+                <Box  flex={{ base: "1", md: "1" }}
+                ml={{ base: "0", md: "4" }}
+                mt={{ base: "1", md: "0" }}
+                display={{ base: "none", md: "block" }}>
+                  {/* Add your image here */}
+                  <Image src="Images/login.jpg" alt="Background Image" />
+                </Box>
+              }
+
+            </Flex>
+          </ModalBody>
+
+          <ModalFooter margin={"0 10"}  justifyContent={'space-around'}
+           width={isSmallerThanMd ? '100%':'40%'} marginBottom={'20px'} >
+            <Button colorScheme='blue' mr={1} onClick={handleSubmit} >
+              LogIn
+            </Button>
+            <Button onClick={onClose} ><Link to="OpenAccount"> Create your account</Link></Button>
+
+
+            <Button onClick={onClose} ><Link to="admin-login"> Admin</Link></Button>
+
+          </ModalFooter>
+        </ModalContent>
+            
           </Modal>
-          </>
-      )
-  }
+        </>
+      )}
+    </Box>
+  );
+}
 
 export default LogIn;

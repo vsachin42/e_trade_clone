@@ -1,5 +1,15 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios"
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from '@chakra-ui/react'
 import {
   Box,
   Button,
@@ -10,8 +20,15 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
+import { LandingPage } from "./LandingPage";
 
 export default function OpenAccount() {
+  const [isOpen, setIsOpen] = useState(true);
+  // const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const initialRef = React.useRef(null)
+  const finalRef = React.useRef(null)
+
   const [name, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const[email,setEmail]=useState("")
@@ -76,9 +93,9 @@ export default function OpenAccount() {
           setEmail("");
           setCity("");
           setDob("")
-           
+           navigate("/login")
         }
-        if (response.status === 400) {
+        else if (response.status === 400) {
           toast({
             title: "User already registered please go to login page",
             status: "failure",
@@ -91,12 +108,12 @@ export default function OpenAccount() {
           setEmail("");
           setCity("");
           setDob("")
-          // navigate("/login")
+           navigate("/login")
         }
       } catch (error) {
         console.error(error.message);
         toast({
-          title: "Signup failed",
+          title: "User already registered please go to login page",
           status: "error",
           duration: 3000,
           isClosable: true,
@@ -106,68 +123,91 @@ export default function OpenAccount() {
   };
 
   return (
-    <Box p={4}width={"40%"} marginLeft={"450px"} marginTop={"100px"} >
-      <form onSubmit={handleSubmit}>
-        <VStack spacing={4}>
-          <FormControl id="name">
-            <FormLabel>name</FormLabel>
-            <Input
-              type="text"
-              value={name}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </FormControl>
-          {/* adding email */}
-          <FormControl id="email">
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </FormControl>
-          {/* adding city */}
-          <FormControl id="city">
-            <FormLabel>City</FormLabel>
-            <Input
-              type="city"
-              value={city}
-              onChange={(event) => setCity(event.target.value)}
-            />
-          </FormControl>
+
+ 
 
 
-          {/* adding age */}
-          <FormControl id="DOB">
-            <FormLabel>DOB</FormLabel>
-            <Input
-              type="age"
-              value={DOB}
-              onChange={(event) => setDob(event.target.value)}
-            />
-          </FormControl>
-          
-          <FormControl id="password">
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </FormControl>
-          <FormControl id="confirmPassword">
-            <FormLabel>Confirm Password</FormLabel>
-            <Input
-              type="password"
-              value={confirmPassword}
-              onChange={(event) => setConfirmPassword(event.target.value)}
-            />
-          </FormControl>
-          <Button type="submit" colorScheme="blue">
+    <><LandingPage />
+    {/* <Button colorScheme="blue" onClick={() => setIsOpen(true)}>
+      Open Signup Modal
+    </Button> */}
+    <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Signup Form</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <VStack spacing={4}>
+            <FormControl id="name">
+              <FormLabel>Name</FormLabel>
+              <Input
+                type="text"
+                value={name}
+                onChange={(event) => setUsername(event.target.value)}
+              />
+            </FormControl>
+
+            {/* Adding email */}
+            <FormControl id="email">
+              <FormLabel>Email</FormLabel>
+              <Input
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </FormControl>
+
+            {/* Adding city */}
+            <FormControl id="city">
+              <FormLabel>City</FormLabel>
+              <Input
+                type="text"
+                value={city}
+                onChange={(event) => setCity(event.target.value)}
+              />
+            </FormControl>
+
+            {/* Adding date of birth */}
+            <FormControl id="DOB">
+              <FormLabel>DOB</FormLabel>
+              <Input
+                type="date"
+                value={DOB}
+                onChange={(event) => setDob(event.target.value)}
+              />
+            </FormControl>
+
+            <FormControl id="password">
+              <FormLabel>Password</FormLabel>
+              <Input
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </FormControl>
+
+            <FormControl id="confirmPassword">
+              <FormLabel>Confirm Password</FormLabel>
+              <Input
+                type="password"
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+              />
+            </FormControl>
+          </VStack>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={() => setIsOpen(false)}>
+            Close
+          </Button>
+          <Button type="submit" colorScheme="green" onClick={handleSubmit}>
             Signup
           </Button>
-        </VStack>
-      </form>
-    </Box>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  </>
+ 
   );
 }
