@@ -4,6 +4,7 @@
 
 
 
+
 import { createContext, useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 
@@ -14,6 +15,10 @@ function AuthContextProvider({ children }) {
 
   const initialIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   const [isLoggedIn, setIsLoggedIn] = useState(initialIsLoggedIn);
+
+
+
+
 
  
   const [name, setName] = useState(""); // You can set a default value for name here if needed
@@ -52,4 +57,7 @@ function AuthContextProvider({ children }) {
   );
 }
 
+
 export { AuthContextProvider };
+
+

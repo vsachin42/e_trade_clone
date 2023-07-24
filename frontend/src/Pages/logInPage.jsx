@@ -1,7 +1,4 @@
 
-
-
-
 import React, { useContext, useState } from 'react';
 import {
   Menu,
@@ -54,6 +51,7 @@ function LogIn() {
    
       event.preventDefault();
       if (!email || !password) {
+
         toast({
           title: "Please Enter all the fields",
           status: "warning",
@@ -110,6 +108,7 @@ function LogIn() {
       } catch (error) {
         console.error(error);
         toast({
+
           title: "Login failed",
           status: "error",
           duration: 3000,
@@ -129,8 +128,8 @@ function LogIn() {
 
   return (
     <Box>
-   
-     
+
+
       {isLoggedIn ? (
         <Menu>
           <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
@@ -208,6 +207,10 @@ function LogIn() {
               LogIn
             </Button>
             <Button onClick={onClose} ><Link to="OpenAccount"> Create your account</Link></Button>
+
+
+            <Button onClick={onClose} ><Link to="admin-login"> Admin</Link></Button>
+
           </ModalFooter>
         </ModalContent>
             
