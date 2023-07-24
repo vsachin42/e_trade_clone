@@ -5,7 +5,7 @@ import { Box,Flex,IconButton,Input,InputGroup,InputLeftElement,useDisclosure,
     Popover,PopoverTrigger,PopoverContent,
   PopoverBody,PopoverArrow, useTimeout,} from '@chakra-ui/react';
     import { FaBars, FaSearch, FaUserCircle, FaShoppingCart, FaBell } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import "../styles/Navbar.css"
 import LogIn from '../Pages/logInPage';
 
@@ -267,7 +267,7 @@ const Navbar = () => {
 
           {/* Cart */}
           <Box mr={4}>
-            <IconButton aria-label="Cart" icon={<FaShoppingCart />} variant="ghost" />
+           <NavLink to="/addcart"><IconButton aria-label="Cart" icon={<FaShoppingCart />} variant="ghost" /></NavLink> 
           </Box>
 
           {/* Menu Button */}

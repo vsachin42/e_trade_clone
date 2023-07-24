@@ -5,7 +5,7 @@ const StockCardItem = (props) => {
   const {_id,symbol,companyName,image,currentPrice,percentPrice,change,percentChange} = props;
 
   return (
-      <NavLink to={`stock/${_id}`}>
+      <NavLink to={`/stock/${_id}`}>
      <Box>
     <Image height="3rem" src={image} alt={companyName}/>
     <Text>{companyName}</Text>
