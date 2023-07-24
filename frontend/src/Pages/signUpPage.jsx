@@ -20,6 +20,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
+import { LandingPage } from "./LandingPage";
 
 export default function OpenAccount() {
   const [isOpen, setIsOpen] = useState(true);
@@ -123,74 +124,10 @@ export default function OpenAccount() {
 
   return (
 
-    // <Box p={4}width={"40%"} marginLeft={"450px"} marginTop={"100px"} >
-    //   <form onSubmit={handleSubmit}>
-    //     <VStack spacing={4}>
-    //       <FormControl id="name">
-    //         <FormLabel>name</FormLabel>
-    //         <Input
-    //           type="text"
-    //           value={name}
-    //           onChange={(event) => setUsername(event.target.value)}
-    //         />
-    //       </FormControl>
-    //       {/* adding email */}
-    //       <FormControl id="email">
-    //         <FormLabel>Email</FormLabel>
-    //         <Input
-    //           type="email"
-    //           value={email}
-    //           onChange={(event) => setEmail(event.target.value)}
-    //         />
-    //       </FormControl>
-    //       {/* adding city */}
-    //       <FormControl id="city">
-    //         <FormLabel>City</FormLabel>
-    //         <Input
-    //           type="city"
-    //           value={city}
-    //           onChange={(event) => setCity(event.target.value)}
-    //         />
-    //       </FormControl>
+ 
 
 
-    //       {/* adding age */}
-    //       <FormControl id="DOB">
-    //         <FormLabel>DOB</FormLabel>
-    //         <Input
-    //           type="age"
-    //           value={DOB}
-    //           onChange={(event) => setDob(event.target.value)}
-    //         />
-    //       </FormControl>
-          
-    //       <FormControl id="password">
-    //         <FormLabel>Password</FormLabel>
-    //         <Input
-    //           type="password"
-    //           value={password}
-    //           onChange={(event) => setPassword(event.target.value)}
-    //         />
-    //       </FormControl>
-    //       <FormControl id="confirmPassword">
-    //         <FormLabel>Confirm Password</FormLabel>
-    //         <Input
-    //           type="password"
-    //           value={confirmPassword}
-    //           onChange={(event) => setConfirmPassword(event.target.value)}
-    //         />
-    //       </FormControl>
-    //       <Button type="submit" colorScheme="blue">
-    //         Signup
-    //       </Button>
-    //     </VStack>
-    //   </form>
-    // </Box>
-
-    //using chakra ui
-
-
-    <>
+    <><LandingPage />
     {/* <Button colorScheme="blue" onClick={() => setIsOpen(true)}>
       Open Signup Modal
     </Button> */}
